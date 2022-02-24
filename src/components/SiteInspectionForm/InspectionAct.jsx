@@ -15,7 +15,7 @@ export default function InpsectionAct({ actType, ...props }) {
   const colors = getColors(actType);
 
   return (
-    <Box bgColor={colors.light} shadow="lg">
+    <Box bgColor={colors.light} shadow="lg" my={2}>
       <Box bgColor={colors.dark} p={2}>
         <Badge variant="solid" colorScheme={colors.scheme}>
           {actType}
