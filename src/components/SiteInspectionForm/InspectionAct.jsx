@@ -10,13 +10,24 @@ function getColors(actType) {
   };
 }
 
-export default function InpsectionAct({ actType, ...props }) {
+export default function InpsectionAct({
+  section,
+  subsection,
+  actType,
+  ...props
+}) {
   const [resolved, setResolved] = useState(false);
   const colors = getColors(actType);
 
   return (
     <Box bgColor={colors.light} shadow="lg" my={2}>
       <Box bgColor={colors.dark} p={2}>
+        <Badge variant="solid" colorScheme={colors.scheme} mr={2}>
+          {section}
+        </Badge>
+        <Badge variant="solid" colorScheme={colors.scheme} mr={2}>
+          {subsection}
+        </Badge>
         <Badge variant="solid" colorScheme={colors.scheme}>
           {actType}
         </Badge>

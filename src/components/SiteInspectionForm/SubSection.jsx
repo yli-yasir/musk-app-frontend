@@ -2,7 +2,7 @@ import { Heading, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import InpsectionAct from "./InspectionAct";
 
-export default function SubSection({ title }) {
+export default function SubSection({ section, title }) {
   const [inspectionActs, setInspectionActs] = useState([]);
 
   function addInspectionAct(actType) {
@@ -15,7 +15,7 @@ export default function SubSection({ title }) {
         {title}
       </Heading>
       {inspectionActs.map((actType) => (
-        <InpsectionAct actType={actType} />
+        <InpsectionAct section={section} subsection={title} actType={actType} />
       ))}
       <Button
         m={4}
@@ -25,7 +25,6 @@ export default function SubSection({ title }) {
         Add Intervention
       </Button>
       <Button
-        variant="outline"
         colorScheme="green"
         onClick={() => addInspectionAct("commendation")}
       >

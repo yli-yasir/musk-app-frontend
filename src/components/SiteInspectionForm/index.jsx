@@ -4,14 +4,14 @@ import Section from "./Section";
 export default function SiteInspectionForm() {
   return (
     <Center
-      bgColor="gray.500"
+      bgColor="white"
       p={4}
       w="100%"
       m={4}
       maxW="700px"
       flexDirection="column"
       borderRadius="lg"
-      boxShadow="2xl"
+      shadow="2xl"
     >
       <Logo />
       <Heading textAlign="center" mt={8}>

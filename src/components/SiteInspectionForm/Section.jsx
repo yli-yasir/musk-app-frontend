@@ -1,4 +1,5 @@
 import { Box, Heading, Button } from "@chakra-ui/react";
+import SubSection from "./SubSection";
 
 export default function Section({ title, subSections }) {
   return (
@@ -6,8 +7,8 @@ export default function Section({ title, subSections }) {
       <Heading size="lg" textAlign="left">
         {title}
       </Heading>
-      {subSections.map((subSection) => (
-        <></>
+      {subSections.map((subSectionTitle) => (
+        <SubSection section={title} title={subSectionTitle} />
       ))}
     </Box>
   );
