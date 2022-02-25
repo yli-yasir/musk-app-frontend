@@ -2,7 +2,7 @@ import { Heading, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import InpsectionAct from "./InspectionAct";
 
-export default function SubSection({ section, title }) {
+export default function SubSection({ registerInput, section, title }) {
   const [inspectionActs, setInspectionActs] = useState([]);
 
   function addInspectionAct(actType) {
@@ -14,8 +14,14 @@ export default function SubSection({ section, title }) {
       <Heading size="md" mt={4}>
         {title}
       </Heading>
-      {inspectionActs.map((actType) => (
-        <InpsectionAct section={section} subsection={title} actType={actType} />
+      {inspectionActs.map((actType, index) => (
+        <InpsectionAct
+          registerInput={registerInput}
+          section={section}
+          subsection={title}
+          index={index}
+          actType={actType}
+        />
       ))}
       <Button
         m={4}

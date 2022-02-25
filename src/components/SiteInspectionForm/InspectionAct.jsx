@@ -1,5 +1,5 @@
 import { Box, Textarea, Badge, Checkbox } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function getColors(actType) {
   const scheme = actType === "commendation" ? "green" : "yellow";
@@ -13,11 +13,16 @@ function getColors(actType) {
 export default function InpsectionAct({
   section,
   subsection,
+  index,
+  registerInput,
   actType,
   ...props
 }) {
   const [resolved, setResolved] = useState(false);
   const colors = getColors(actType);
+
+  const registerField = (fieldName) =>
+    registerInput(`${section}[${index}].${fieldName}`);
 
   return (
     <Box bgColor={colors.light} shadow="lg" my={2}>
@@ -33,16 +38,27 @@ export default function InpsectionAct({
         </Badge>
       </Box>
       <Box p={2}>
-        <Textarea bgColor="white" placeholder="Description" my={4} />
+        <Textarea
+          bgColor="white"
+          placeholder="Description"
+          my={4}
+          {...registerField("description")}
+        />
         <Checkbox
           colorScheme={colors.scheme}
           isChecked={resolved}
+          {...registerField("resolved")}
           onChange={(e) => setResolved(e.target.checked)}
         >
           Resolved
         </Checkbox>
         {resolved && (
-          <Textarea bgColor="white" placeholder="Resolution" my={4} />
+          <Textarea
+            bgColor="white"
+            placeholder="Resolution"
+            my={4}
+            {...registerField("resolution")}
+          />
         )}
       </Box>
     </Box>
