@@ -2,12 +2,10 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
   TableCaption,
-  Button,
   Link,
 } from "@chakra-ui/react";
 

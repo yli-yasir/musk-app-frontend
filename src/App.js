@@ -1,12 +1,10 @@
-import InspectionForm from "./components/SiteInspectionForm";
-import AuthForm from "./components/AuthForm";
-
 import { Center } from "@chakra-ui/react";
+import GeoMap from "./components/GeoMap";
 
 function App() {
   return (
     <Center>
-      <AuthForm />
+      <GeoMap />
     </Center>
   );
 }
