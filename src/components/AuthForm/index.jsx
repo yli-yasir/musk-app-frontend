@@ -1,17 +1,37 @@
-import Paper from "../Paper";
 import Form from "../Form";
-import { Button, Input } from "@chakra-ui/react";
-import Logo from "../Logo";
+import { Button, Input, FormControl } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+
+const submissionHandler = (data) => {
+  alert(JSON.stringify(data));
+};
 
 export default function AuthForm() {
+  const { register: registerInput, handleSubmit } = useForm();
+
   return (
-    <Paper>
-      <Logo mb={6} />
-      <Form>
-        <Input placeholder="Email" mb={4} />
-        <Input placeholder="Password" mb={4} />
-        <Button>Login</Button>
-      </Form>
-    </Paper>
+    <Form title="Login" onSubmit={handleSubmit(submissionHandler)}>
+      <FormControl>
+        <Input
+          placeholder="Email"
+          type="email"
+          mb={4}
+          {...registerInput("email")}
+        />
+      </FormControl>
+
+      <FormControl>
+        <Input
+          placeholder="Password"
+          type="password"
+          mb={4}
+          {...registerInput("password")}
+        />
+      </FormControl>
+
+      <Button type="submit" w="100%" colorScheme="blue">
+        Login
+      </Button>
+    </Form>
   );
 }
