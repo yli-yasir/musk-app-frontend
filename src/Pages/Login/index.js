@@ -1,10 +1,16 @@
 import Page from "../../components/Page";
 import AuthForm from "../../components/AuthForm";
-import { Fade, ScaleFade, Slide } from "@chakra-ui/react";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+import { roles } from "../../contexts/UserContext";
+import { Navigate } from "react-router-dom";
+
 export default function LoginPage() {
+  const [userContext] = useContext(UserContext);
   return (
     <Page paddingTop={12} px={2}>
       <AuthForm />
+      {userContext.role !== roles.guest && <Navigate to="/" />}
     </Page>
   );
 }
