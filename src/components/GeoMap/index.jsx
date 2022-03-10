@@ -19,7 +19,7 @@ export default function GeoMap(props) {
       container: "map-container",
       style: "mapbox://styles/mapbox/streets-v11",
     });
-  });
+  }, []);
 
   useEffect(() => {
     for (const markerData of markersData) {
@@ -28,7 +28,8 @@ export default function GeoMap(props) {
         .setLngLat([markerData.long, markerData.lat])
         .addTo(geoMapRef.current);
     }
-  });
+  }, []);
+
   return (
     <AspectRatio {...props} ratio={16 / 9}>
       <Box borderRadius="lg" id="map-container" />

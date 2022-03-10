@@ -6,6 +6,9 @@ const theme = extendTheme({
       "html, body": {
         backgroundColor: "gray.200",
       },
+      ".react-autosuggest__suggestions-list": {
+        listStyleType: "none",
+      },
     },
   },
 });
