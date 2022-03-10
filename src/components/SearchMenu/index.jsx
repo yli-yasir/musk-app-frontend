@@ -4,7 +4,12 @@ import Autosuggest from "react-autosuggest";
 import { useState } from "react";
 import { Search2Icon } from "@chakra-ui/icons";
 // suggestion = {id:0, text: 'hello world'}
-export default function SearchMenu({ suggestions, onChange, ...props }) {
+export default function SearchMenu({
+  suggestions,
+  onChange,
+  onSuggestionSelected,
+  ...props
+}) {
   const [searchValue, setSearchValue] = useState("");
   return (
     <Box position="relative" {...props}>
@@ -13,6 +18,7 @@ export default function SearchMenu({ suggestions, onChange, ...props }) {
         getSuggestionValue={(suggestion) => suggestion.text}
         onSuggestionsFetchRequested={onChange}
         onSuggestionsClearRequested={() => {}}
+        onSuggestionSelected={onSuggestionSelected}
         renderSuggestion={renderSuggestion}
         renderInputComponent={renderInput}
         inputProps={{

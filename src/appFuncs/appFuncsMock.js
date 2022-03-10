@@ -15,8 +15,8 @@ const mockDB = {
     },
   ],
   inspectionSites: [
-    { name: "The amazing site", long: -100.324462, lat: -16.024695 },
-    { name: "The nice site", long: -140.324462, lat: -16.024695 },
+    { id: 0, name: "The amazing site", long: -100.324462, lat: -16.024695 },
+    { id: 1, name: "The nice sited", long: -140.324462, lat: -16.024695 },
   ],
 };
 
@@ -41,7 +41,15 @@ const appFuncsMock = {
       throw new Error("Invalid username or password");
     }
   },
-  async getInspectionSites() {},
+  async getInspectionSites() {
+    let sites;
+    try {
+      sites = await mockDB.get("inspectionSites");
+    } catch (e) {
+      throw new Error("Server error");
+    }
+    return sites;
+  },
 };
 
 export default appFuncsMock;

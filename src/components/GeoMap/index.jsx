@@ -5,13 +5,8 @@ import { AspectRatio, Box } from "@chakra-ui/react";
 mapBoxGL.accessToken =
   "pk.eyJ1IjoieWxpLXlhc2lyIiwiYSI6ImNsMDRka2RweTBnYzMzZHBkZ3F0aXVwbXcifQ.OW_N4YiLZV1WIl3op0_DNA";
 
-const markersData = [
-  { long: -66.324462, lat: -16.024695 },
-  { long: -80.324462, lat: -16.024695 },
-  { long: -100.324462, lat: -16.024695 },
-];
-
-export default function GeoMap(props) {
+// const marker = {id:0,name:'amazing',long: -100.324462, lat: -16.024695 }
+export default function GeoMap({ markers, focusCoords, ...props }) {
   const geoMapRef = useRef();
 
   useEffect(() => {
@@ -22,13 +17,20 @@ export default function GeoMap(props) {
   }, []);
 
   useEffect(() => {
-    for (const markerData of markersData) {
+    for (const marker of markers) {
+      console.log("creatoming markers");
       const markerElement = makeMarkerElement();
       new mapBoxGL.Marker(markerElement)
-        .setLngLat([markerData.long, markerData.lat])
+        .setLngLat([marker.long, marker.lat])
         .addTo(geoMapRef.current);
     }
-  }, []);
+  }, [markers]);
+
+  useEffect(() => {
+    if (focusCoords) {
+      geoMapRef.current.flyTo({ center: focusCoords });
+    }
+  }, [focusCoords]);
 
   return (
     <AspectRatio {...props} ratio={16 / 9}>
