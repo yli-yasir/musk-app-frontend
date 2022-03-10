@@ -2,25 +2,26 @@ import { InputGroup, InputLeftElement, Input, Box } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Autosuggest from "react-autosuggest";
 import { useState } from "react";
-import Paper from "../Paper";
-
+import { Search2Icon } from "@chakra-ui/icons";
 // suggestion = {id:0, text: 'hello world'}
-export default function SearchMenu({ suggestions, onChange }) {
+export default function SearchMenu({ suggestions, onChange, ...props }) {
   const [searchValue, setSearchValue] = useState("");
   return (
-    <Autosuggest
-      suggestions={suggestions}
-      getSuggestionValue={(suggestion) => suggestion.text}
-      onSuggestionsFetchRequested={onChange}
-      onSuggestionsClearRequested={() => {}}
-      renderSuggestion={renderSuggestion}
-      renderInputComponent={renderInput}
-      inputProps={{
-        value: searchValue,
-        onChange: (_, { newValue }) => setSearchValue(newValue),
-      }}
-      renderSuggestionsContainer={renderSuggestionsContainer}
-    />
+    <Box position="relative" {...props}>
+      <Autosuggest
+        suggestions={suggestions}
+        getSuggestionValue={(suggestion) => suggestion.text}
+        onSuggestionsFetchRequested={onChange}
+        onSuggestionsClearRequested={() => {}}
+        renderSuggestion={renderSuggestion}
+        renderInputComponent={renderInput}
+        inputProps={{
+          value: searchValue,
+          onChange: (_, { newValue }) => setSearchValue(newValue),
+        }}
+        renderSuggestionsContainer={renderSuggestionsContainer}
+      />
+    </Box>
   );
 }
 
@@ -39,16 +40,32 @@ function renderInput(props) {
 function renderSuggestionsContainer({ containerProps, children }) {
   return (
     <Box
-      bgColor={"gray.300"}
+      position="absolute"
+      zIndex={1}
+      w="100%"
+      bgColor="white"
+      borderRadius="lg"
       shadow="2xl"
       mt={4}
+      cursor="pointer"
       {...containerProps}
-      listStyleType="none"
     >
       {children}
     </Box>
   );
 }
 function renderSuggestion(menuItem) {
-  return <span>{menuItem.text}</span>;
+  return (
+    <Box
+      borderRadius="lg"
+      fontWeight="bold"
+      padding={2}
+      display="flex"
+      alignItems="center"
+      columnGap={3}
+    >
+      <Search2Icon />
+      <i>{menuItem.text}</i>
+    </Box>
+  );
 }

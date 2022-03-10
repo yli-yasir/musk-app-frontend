@@ -24,7 +24,7 @@ export default function App() {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <UserContext.Provider value={[userContext, setUserContext]}>
-        <ChakraProvider value={theme}>
+        <ChakraProvider theme={theme}>
           <Router>
             <Routes>
               <Route path={routePaths.login} element={<LoginPage />} />
