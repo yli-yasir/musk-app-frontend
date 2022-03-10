@@ -1,6 +1,6 @@
 import mapBoxGL from "mapbox-gl/dist/mapbox-gl.js";
 import { useEffect, useRef } from "react";
-import { Box } from "@chakra-ui/react";
+import { AspectRatio, Box } from "@chakra-ui/react";
 
 mapBoxGL.accessToken =
   "pk.eyJ1IjoieWxpLXlhc2lyIiwiYSI6ImNsMDRka2RweTBnYzMzZHBkZ3F0aXVwbXcifQ.OW_N4YiLZV1WIl3op0_DNA";
@@ -11,7 +11,7 @@ const markersData = [
   { long: -100.324462, lat: -16.024695 },
 ];
 
-export default function GeoMap() {
+export default function GeoMap(props) {
   const geoMapRef = useRef();
 
   useEffect(() => {
@@ -29,7 +29,11 @@ export default function GeoMap() {
         .addTo(geoMapRef.current);
     }
   });
-  return <Box height="500px" width="500px" id="map-container" />;
+  return (
+    <AspectRatio {...props} ratio={16 / 9}>
+      <Box borderRadius="lg" id="map-container" />
+    </AspectRatio>
+  );
 }
 
 function makeMarkerElement() {
@@ -38,6 +42,7 @@ function makeMarkerElement() {
   markerElement.style.height = "50px";
   markerElement.style.backgroundImage = "url(http://placekitten.com/g/50/50)";
   markerElement.style.backgroundSize = "100%";
+  markerElement.style.borderRadius = "30%";
   markerElement.onclick = () => alert("hello world");
   return markerElement;
 }

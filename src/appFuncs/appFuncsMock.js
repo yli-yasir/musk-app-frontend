@@ -14,6 +14,10 @@ const mockDB = {
       role: roles.admin,
     },
   ],
+  inspectionSites: [
+    { name: "The amazing site", long: -100.324462, lat: -16.024695 },
+    { name: "The nice site", long: -140.324462, lat: -16.024695 },
+  ],
 };
 
 const appFuncsMock = {
@@ -37,6 +41,7 @@ const appFuncsMock = {
       throw new Error("Invalid username or password");
     }
   },
+  async getInspectionSites() {},
 };
 
 export default appFuncsMock;
