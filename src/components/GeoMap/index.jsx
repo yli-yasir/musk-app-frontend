@@ -6,7 +6,12 @@ mapBoxGL.accessToken =
   "pk.eyJ1IjoieWxpLXlhc2lyIiwiYSI6ImNsMDRka2RweTBnYzMzZHBkZ3F0aXVwbXcifQ.OW_N4YiLZV1WIl3op0_DNA";
 
 // const marker = {id:0,name:'amazing',long: -100.324462, lat: -16.024695 }
-export default function GeoMap({ markers, focusCoords, ...props }) {
+export default function GeoMap({
+  markers,
+  focusCoords,
+  onMarkerClick,
+  ...props
+}) {
   const geoMapRef = useRef();
 
   useEffect(() => {
@@ -18,17 +23,16 @@ export default function GeoMap({ markers, focusCoords, ...props }) {
 
   useEffect(() => {
     for (const marker of markers) {
-      console.log("creatoming markers");
-      const markerElement = makeMarkerElement();
+      const markerElement = makeMarkerElement(() => onMarkerClick(marker));
       new mapBoxGL.Marker(markerElement)
         .setLngLat([marker.long, marker.lat])
         .addTo(geoMapRef.current);
     }
-  }, [markers]);
+  }, [markers, onMarkerClick]);
 
   useEffect(() => {
     if (focusCoords) {
-      geoMapRef.current.flyTo({ center: focusCoords });
+      geoMapRef.current.flyTo({ center: focusCoords, zoom: 5 });
     }
   }, [focusCoords]);
 
@@ -39,13 +43,13 @@ export default function GeoMap({ markers, focusCoords, ...props }) {
   );
 }
 
-function makeMarkerElement() {
+function makeMarkerElement(onClick) {
   const markerElement = document.createElement("div");
   markerElement.style.width = "50px";
   markerElement.style.height = "50px";
   markerElement.style.backgroundImage = "url(http://placekitten.com/g/50/50)";
   markerElement.style.backgroundSize = "100%";
   markerElement.style.borderRadius = "30%";
-  markerElement.onclick = () => alert("hello world");
+  markerElement.onclick = onClick;
   return markerElement;
 }

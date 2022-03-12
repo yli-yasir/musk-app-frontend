@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 import GeoMap from "../GeoMap";
 import SearchMenu from "../SearchMenu";
 import { useEffect, useState } from "react";
@@ -46,7 +46,12 @@ export default function InspectionSitesGeoMap(props) {
         maxW="400px"
         mb={4}
       />
-      <GeoMap markers={sites || []} focusCoords={focusCoords} width="100%" />
+      <GeoMap
+        markers={sites || []}
+        focusCoords={focusCoords}
+        width="100%"
+        onMarkerClick={(marker) => alert(marker.name)}
+      />
     </Box>
   );
 }

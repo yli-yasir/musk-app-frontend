@@ -1,24 +1,4 @@
-import { roles } from "../contexts/UserContext";
-
-const mockDB = {
-  async get(key) {
-    return await new Promise((resolve) =>
-      setTimeout(() => resolve(this[key]), 2000)
-    );
-  },
-  users: [
-    {
-      email: "admin@musk.com",
-      password: "1234",
-      name: "the admin",
-      role: roles.admin,
-    },
-  ],
-  inspectionSites: [
-    { id: 0, name: "The amazing site", long: -100.324462, lat: -16.024695 },
-    { id: 1, name: "The nice sited", long: -140.324462, lat: -16.024695 },
-  ],
-};
+import mockDB from "./mockDB";
 
 const appFuncsMock = {
   async login(email, password) {

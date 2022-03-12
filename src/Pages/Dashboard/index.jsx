@@ -2,6 +2,7 @@ import Page from "../../components/Page";
 import InspectionSitesGeoMap from "../../components/InspectionSitesGeoMap";
 import Logo from "../../components/Logo";
 import { Divider, Heading } from "@chakra-ui/react";
+
 export default function DashboardPage() {
   return (
     <Page maxWidth="1000px" paddingTop={8} paddingX={2} width="100%">
