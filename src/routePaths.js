@@ -3,7 +3,8 @@
 const routePaths = {
   login: "/login",
   inspectionSites: "/inspection-sites",
-  inspectionSite: "/inspection-sites/:name",
+  inspectionSite: "/inspection-sites/:siteId",
+  inspectSite: "/inspection-sites/:siteId/new-inspection",
 };
 
 export default routePaths;

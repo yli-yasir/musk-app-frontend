@@ -3,10 +3,16 @@ import siteLogo1 from "../assets/siteLogo1.png";
 import siteLogo2 from "../assets/siteLogo2.png";
 
 const mockDB = {
-  async get(key) {
-    return await new Promise((resolve) =>
-      setTimeout(() => resolve(this[key]), 2000)
-    );
+  async get(key, fail = false) {
+    try {
+      return fail
+        ? new Error()
+        : await new Promise((resolve) =>
+            setTimeout(() => resolve(this[key]), 2000)
+          );
+    } catch (e) {
+      throw new Error("Server error");
+    }
   },
   users: [
     {
@@ -36,6 +42,28 @@ const mockDB = {
       inspectionCount: 3,
       interventionCount: 5,
       commendationCount: 7,
+    },
+  ],
+  inspectionFormSections: [
+    {
+      name: "Working Standards",
+      subSections: [
+        "Work at height",
+        "Lifting Operations",
+        "Certification",
+        "Confined Space Work",
+        "Electrical Work",
+      ],
+    },
+    {
+      name: "Misc",
+      subSections: [
+        "Work at height - Misc",
+        "Lifting Operations - Misc",
+        "Certification - Misc",
+        "Confined Space Work - Misc",
+        "Electrical Work - Misc",
+      ],
     },
   ],
 };

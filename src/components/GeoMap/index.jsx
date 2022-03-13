@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AspectRatio, Box, Heading, Badge } from "@chakra-ui/react";
+import { AspectRatio, Box, Heading, Badge, Button } from "@chakra-ui/react";
 import useGeoMap from "./useGeoMap";
 import useSites from "./useSites";
 import SearchMenu from "../SearchMenu";

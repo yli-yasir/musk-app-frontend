@@ -2,13 +2,8 @@ import mockDB from "./mockDB";
 
 const appFuncsMock = {
   async login(email, password) {
-    let users;
-    try {
-      users = await mockDB.get("users");
-      // throw new Error("xyz has failed while connecting server!");
-    } catch (e) {
-      throw new Error("Server error");
-    }
+    const users = await mockDB.get("users");
+
     const targetUser = users.find((user) => user.email === email);
 
     if (targetUser && targetUser.password === password) {
@@ -22,13 +17,10 @@ const appFuncsMock = {
     }
   },
   async getInspectionSites() {
-    let sites;
-    try {
-      sites = await mockDB.get("inspectionSites");
-    } catch (e) {
-      throw new Error("Server error");
-    }
-    return sites;
+    return await mockDB.get("inspectionSites");
+  },
+  async getInspectionFormSections() {
+    return await mockDB.get("inspectionFormSections");
   },
 };
 
