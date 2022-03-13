@@ -3,9 +3,9 @@ import Logo from "../Logo";
 import Paper from "../Paper";
 
 // TODO replace the inline-style
-export default function Form({ title, children, ...props }) {
+export default function Form({ title, children, maxWidth, ...props }) {
   return (
-    <Paper>
+    <Paper maxWidth={maxWidth}>
       <Logo width="50%" />
       <Heading textAlign="center" mt={6} size="xl">
         {title}

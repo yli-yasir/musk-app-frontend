@@ -1,14 +1,10 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Form from "../Form";
 import Section from "./Section";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-
-const steps = [
-  { label: "Step 1", content: <div>hello 1</div> },
-  { label: "Step 2", content: <div>hello 2</div> },
-  { label: "Step 3", content: <div>hello 3</div> },
-];
+import { useAsync } from "react-use";
+import appFuncs from "../../appFuncs";
 
 export default function SiteInspectionForm() {
   const { register: registerInput, handleSubmit } = useForm();
@@ -17,47 +13,48 @@ export default function SiteInspectionForm() {
     initialStep: 0,
   });
 
+  // need to handle case where fetch fails
+  const { value: sections } = useAsync(
+    async () => appFuncs.getInspectionFormSections(),
+    []
+  );
+
   const handleFormSubmit = handleSubmit((data) => {
     alert(JSON.stringify(data));
   });
 
   return (
-    <Form>
-      <Steps activeStep={activeStep} orientation="vertical">
-        {steps.map(({ label, content }) => (
-          <Step label={label} key={label}>
-            {content}
-          </Step>
-        ))}
-      </Steps>
+    <Form maxWidth="800px">
+      {sections && (
+        <>
+          <Steps activeStep={activeStep} orientation="vertical">
+            {sections.map(({ name, subSections }) => (
+              <Step label={name} key={name}>
+                <Section
+                  registerInput={registerInput}
+                  title={name}
+                  subSections={subSections}
+                />
+              </Step>
+            ))}
+          </Steps>
+          <Box display="flex" flexDirection="row-reverse" columnGap={4}>
+            <Button
+              onClick={() => nextStep()}
+              disabled={activeStep === sections.length - 1}
+            >
+              Next
+            </Button>
+            <Button onClick={() => prevStep()} disabled={activeStep === 0}>
+              Previous
+            </Button>
+          </Box>
+        </>
+      )}
 
       <Button type="submit" m={4}>
         Submit
       </Button>
     </Form>
   );
-}
-
-{
-  /* <Heading textAlign="center" mt={8}>
-Site Inspection Form
-</Heading>
-<Divider mt={6} borderColor="blue.100" width="70%" />
-<form style={{ width: "100%" }} onSubmit={handleFormSubmit}>
-<Section
-  registerInput={registerInput}
-  title="Working Standards"
-  subSections={[
-    "Work at height",
-    "Lifting Operations",
-    "Certification",
-    "Confined Space Work",
-    "Electrical Work",
-  ]}
-/>
-
-<Button type="submit" m={4}>
-  Submit
-</Button>
-</form> */
 }

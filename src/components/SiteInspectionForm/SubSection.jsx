@@ -1,6 +1,8 @@
-import { Heading, Button } from "@chakra-ui/react";
+import { Heading, Button, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import InpsectionAct from "./InspectionAct";
+import { ListItem, ListIcon } from "@chakra-ui/react";
+import { SettingsIcon, AddIcon } from "@chakra-ui/icons";
 
 export default function SubSection({ registerInput, section, title }) {
   const [inspectionActs, setInspectionActs] = useState([]);
@@ -10,32 +12,41 @@ export default function SubSection({ registerInput, section, title }) {
   }
 
   return (
-    <>
-      <Heading size="md" mt={4}>
-        {title}
-      </Heading>
-      {inspectionActs.map((actType, index) => (
-        <InpsectionAct
-          registerInput={registerInput}
-          section={section}
-          subsection={title}
-          index={index}
-          actType={actType}
-        />
-      ))}
-      <Button
-        m={4}
-        colorScheme="yellow"
-        onClick={() => addInspectionAct("intervention")}
-      >
-        Add Intervention
-      </Button>
-      <Button
-        colorScheme="green"
-        onClick={() => addInspectionAct("commendation")}
-      >
-        Add Commendation
-      </Button>
-    </>
+    <ListItem>
+      <Box display="flex" alignItems="center">
+        <ListIcon as={SettingsIcon} color="blue.400" />
+        <Heading size="md">{title}</Heading>
+      </Box>
+      <Box>
+        {inspectionActs.map((actType, index) => (
+          <InpsectionAct
+            registerInput={registerInput}
+            section={section}
+            subsection={title}
+            index={index}
+            actType={actType}
+          />
+        ))}
+        <Button
+          m={4}
+          fontStyle="italic"
+          colorScheme="yellow"
+          size="sm"
+          leftIcon={<AddIcon />}
+          onClick={() => addInspectionAct("intervention")}
+        >
+          Intervention
+        </Button>
+        <Button
+          fontStyle="italic"
+          size="sm"
+          leftIcon={<AddIcon />}
+          colorScheme="green"
+          onClick={() => addInspectionAct("commendation")}
+        >
+          Commendation
+        </Button>
+      </Box>
+    </ListItem>
   );
 }
