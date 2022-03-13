@@ -47,7 +47,7 @@ function renderSuggestionsContainer({ containerProps, children }) {
   return (
     <Box
       position="absolute"
-      zIndex={1}
+      zIndex={10}
       w="100%"
       bgColor="white"
       borderRadius="lg"

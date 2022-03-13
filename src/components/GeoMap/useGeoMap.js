@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 mapBoxGL.accessToken =
   "pk.eyJ1IjoieWxpLXlhc2lyIiwiYSI6ImNsMDRka2RweTBnYzMzZHBkZ3F0aXVwbXcifQ.OW_N4YiLZV1WIl3op0_DNA";
 
-export default function useGeoMap({ sites, selectedSiteId, onSiteClick }) {
+export default function useGeoMap({ sites, selectedSite, onSiteClick }) {
   const geoMapRef = useRef();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function useGeoMap({ sites, selectedSiteId, onSiteClick }) {
 
   useEffect(() => {
     for (const site of sites) {
-      const markerElement = makeMarkerElement(onSiteClick);
+      const markerElement = makeMarkerElement(() => onSiteClick(site));
       new mapBoxGL.Marker(markerElement)
         .setLngLat([site.long, site.lat])
         .addTo(geoMapRef.current);
@@ -24,14 +24,13 @@ export default function useGeoMap({ sites, selectedSiteId, onSiteClick }) {
   }, [sites, onSiteClick]);
 
   useEffect(() => {
-    if (typeof selectedSiteId !== "undefined") {
-      const targetSite = sites.find((site) => site.id === selectedSiteId);
+    if (selectedSite) {
       geoMapRef.current.flyTo({
-        center: [targetSite.long, targetSite.lat],
+        center: [selectedSite.long, selectedSite.lat],
         zoom: 5,
       });
     }
-  }, [sites, selectedSiteId]);
+  }, [sites, selectedSite]);
 }
 
 function makeMarkerElement(onClick) {

@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { AspectRatio, Box } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { AspectRatio, Box, Heading, Badge } from "@chakra-ui/react";
 import useGeoMap from "./useGeoMap";
 import useSites from "./useSites";
 import SearchMenu from "../SearchMenu";
 import useSiteSearch from "./useSiteSearch";
+import Paper from "../Paper";
 
 // const site = {id:0,name:'amazing', description: "hello there", inspectionCount, interventionCount, commendationCount, long: -100.324462, lat: -16.024695 ,}
 export default function GeoMap(props) {
@@ -11,12 +12,17 @@ export default function GeoMap(props) {
 
   const { suggestions, searchValue, setSearchValue } = useSiteSearch(sites);
 
-  const [selectedSiteId, setSelectedSiteId] = useState();
+  const [selectedSite, setSelectedSite] = useState();
+  useEffect(() => {
+    if (sites.length > 0) {
+      setSelectedSite(sites[0]);
+    }
+  }, [sites]);
 
   useGeoMap({
     sites,
-    selectedSiteId,
-    onSiteClick: (site) => setSelectedSiteId(site.id),
+    selectedSite,
+    onSiteClick: (site) => setSelectedSite(site),
   });
 
   return (
@@ -31,15 +37,38 @@ export default function GeoMap(props) {
         suggestions={suggestions}
         searchValue={searchValue}
         onSearchValueChange={(value) => setSearchValue(value)}
-        onSuggestionSelected={(_, { suggestion }) =>
-          setSelectedSiteId(suggestion.id)
-        }
+        onSuggestionSelected={(_, { suggestion }) => {
+          const targetSite = sites.find((site) => site.id === suggestion.id);
+          setSelectedSite(targetSite);
+        }}
         w="100%"
         maxW="400px"
         mb={4}
       />
       <AspectRatio {...props} ratio={16 / 9}>
-        <Box borderRadius="lg" id="map-container" />
+        <Box position="relative">
+          {selectedSite && (
+            <Paper
+              position="absolute"
+              zIndex={1}
+              top={0}
+              flexDirection="row"
+              columnGap={4}
+            >
+              <Badge colorScheme="blue">{selectedSite.name}</Badge>
+              <Badge colorScheme="purple">
+                Inspections: {selectedSite.inspectionCount}
+              </Badge>
+              <Badge colorScheme="green">
+                Commendations: {selectedSite.commendationCount}
+              </Badge>
+              <Badge colorScheme="yellow">
+                Interventions: {selectedSite.interventionCount}
+              </Badge>
+            </Paper>
+          )}
+          <Box w="100%" h="100%" borderRadius="lg" id="map-container" />
+        </Box>
       </AspectRatio>
     </Box>
   );
