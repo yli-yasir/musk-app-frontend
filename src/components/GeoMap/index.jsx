@@ -1,55 +1,46 @@
-import mapBoxGL from "mapbox-gl/dist/mapbox-gl.js";
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { AspectRatio, Box } from "@chakra-ui/react";
+import useGeoMap from "./useGeoMap";
+import useSites from "./useSites";
+import SearchMenu from "../SearchMenu";
+import useSiteSearch from "./useSiteSearch";
 
-mapBoxGL.accessToken =
-  "pk.eyJ1IjoieWxpLXlhc2lyIiwiYSI6ImNsMDRka2RweTBnYzMzZHBkZ3F0aXVwbXcifQ.OW_N4YiLZV1WIl3op0_DNA";
+// const site = {id:0,name:'amazing', description: "hello there", inspectionCount, interventionCount, commendationCount, long: -100.324462, lat: -16.024695 ,}
+export default function GeoMap(props) {
+  const sites = useSites();
 
-// const marker = {id:0,name:'amazing',long: -100.324462, lat: -16.024695 }
-export default function GeoMap({
-  markers,
-  focusCoords,
-  onMarkerClick,
-  ...props
-}) {
-  const geoMapRef = useRef();
+  const { suggestions, searchValue, setSearchValue } = useSiteSearch(sites);
 
-  useEffect(() => {
-    geoMapRef.current = new mapBoxGL.Map({
-      container: "map-container",
-      style: "mapbox://styles/mapbox/streets-v11",
-    });
-  }, []);
+  const [selectedSiteId, setSelectedSiteId] = useState();
 
-  useEffect(() => {
-    for (const marker of markers) {
-      const markerElement = makeMarkerElement(() => onMarkerClick(marker));
-      new mapBoxGL.Marker(markerElement)
-        .setLngLat([marker.long, marker.lat])
-        .addTo(geoMapRef.current);
-    }
-  }, [markers, onMarkerClick]);
-
-  useEffect(() => {
-    if (focusCoords) {
-      geoMapRef.current.flyTo({ center: focusCoords, zoom: 5 });
-    }
-  }, [focusCoords]);
+  useGeoMap({
+    sites,
+    selectedSiteId,
+    onSiteClick: (site) => setSelectedSiteId(site.id),
+  });
 
   return (
-    <AspectRatio {...props} ratio={16 / 9}>
-      <Box borderRadius="lg" id="map-container" />
-    </AspectRatio>
+    <Box
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      {...props}
+    >
+      <SearchMenu
+        suggestions={suggestions}
+        searchValue={searchValue}
+        onSearchValueChange={(value) => setSearchValue(value)}
+        onSuggestionSelected={(_, { suggestion }) =>
+          setSelectedSiteId(suggestion.id)
+        }
+        w="100%"
+        maxW="400px"
+        mb={4}
+      />
+      <AspectRatio {...props} ratio={16 / 9}>
+        <Box borderRadius="lg" id="map-container" />
+      </AspectRatio>
+    </Box>
   );
-}
-
-function makeMarkerElement(onClick) {
-  const markerElement = document.createElement("div");
-  markerElement.style.width = "50px";
-  markerElement.style.height = "50px";
-  markerElement.style.backgroundImage = "url(http://placekitten.com/g/50/50)";
-  markerElement.style.backgroundSize = "100%";
-  markerElement.style.borderRadius = "30%";
-  markerElement.onclick = onClick;
-  return markerElement;
 }

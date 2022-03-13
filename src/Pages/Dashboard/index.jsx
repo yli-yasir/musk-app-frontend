@@ -1,5 +1,5 @@
 import Page from "../../components/Page";
-import InspectionSitesGeoMap from "../../components/InspectionSitesGeoMap";
+import GeoMap from "../../components/GeoMap";
 import Logo from "../../components/Logo";
 import { Divider, Heading } from "@chakra-ui/react";
 
@@ -11,7 +11,7 @@ export default function DashboardPage() {
         Dashboard
       </Heading>
       <Divider width="50%" my={4} />
-      <InspectionSitesGeoMap width="100%" />
+      <GeoMap width="100%" />
     </Page>
   );
 }
