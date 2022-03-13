@@ -23,7 +23,8 @@ export default function SearchMenu({
         renderInputComponent={renderInput}
         inputProps={{
           value: searchValue,
-          onChange: (_, { newValue }) => onSearchValueChange(newValue),
+          onChange: (_, { newValue, method }) =>
+            onSearchValueChange(newValue, method),
         }}
         renderSuggestionsContainer={renderSuggestionsContainer}
       />

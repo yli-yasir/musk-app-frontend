@@ -10,7 +10,12 @@ import Paper from "../Paper";
 export default function GeoMap(props) {
   const sites = useSites();
 
-  const { suggestions, searchValue, setSearchValue } = useSiteSearch(sites);
+  const {
+    suggestions,
+    searchValue,
+    setSearchValue,
+    setSearchValueChangeMethod,
+  } = useSiteSearch(sites);
 
   const [selectedSite, setSelectedSite] = useState();
   useEffect(() => {
@@ -36,7 +41,10 @@ export default function GeoMap(props) {
       <SearchMenu
         suggestions={suggestions}
         searchValue={searchValue}
-        onSearchValueChange={(value) => setSearchValue(value)}
+        onSearchValueChange={(value, method) => {
+          setSearchValueChangeMethod(method);
+          setSearchValue(value);
+        }}
         onSuggestionSelected={(_, { suggestion }) => {
           const targetSite = sites.find((site) => site.id === suggestion.id);
           setSelectedSite(targetSite);
