@@ -6,7 +6,7 @@ import SearchMenu from "../SearchMenu";
 import useSiteSearch from "./useSiteSearch";
 import Paper from "../Paper";
 
-// const site = {id:0,name:'amazing', description: "hello there", inspectionCount, interventionCount, commendationCount, long: -100.324462, lat: -16.024695 ,}
+// const site = {id:0,name:'amazing', icon: 'iconUrl', description: "hello there", inspectionCount, interventionCount, commendationCount, long: -100.324462, lat: -16.024695 ,}
 export default function GeoMap(props) {
   const sites = useSites();
 

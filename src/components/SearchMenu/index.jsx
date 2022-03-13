@@ -39,7 +39,7 @@ function renderInput(props) {
         pointerEvents="none"
         children={<SearchIcon color="gray.300" />}
       />
-      <Input placeholder="Search" {...props} />
+      <Input placeholder="Search Inspection Sites" {...props} />
     </InputGroup>
   );
 }

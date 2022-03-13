@@ -16,7 +16,9 @@ export default function useGeoMap({ sites, selectedSite, onSiteClick }) {
 
   useEffect(() => {
     for (const site of sites) {
-      const markerElement = makeMarkerElement(() => onSiteClick(site));
+      const markerElement = makeMarkerElement(site.icon, () =>
+        onSiteClick(site)
+      );
       new mapBoxGL.Marker(markerElement)
         .setLngLat([site.long, site.lat])
         .addTo(geoMapRef.current);
@@ -33,11 +35,11 @@ export default function useGeoMap({ sites, selectedSite, onSiteClick }) {
   }, [sites, selectedSite]);
 }
 
-function makeMarkerElement(onClick) {
+function makeMarkerElement(iconSrc, onClick) {
   const markerElement = document.createElement("div");
   markerElement.style.width = "50px";
   markerElement.style.height = "50px";
-  markerElement.style.backgroundImage = "url(http://placekitten.com/g/50/50)";
+  markerElement.style.backgroundImage = `url(${iconSrc})`;
   markerElement.style.backgroundSize = "100%";
   markerElement.style.borderRadius = "30%";
   markerElement.onclick = onClick;
