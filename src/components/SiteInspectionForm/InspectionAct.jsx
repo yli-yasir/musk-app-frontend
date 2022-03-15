@@ -1,14 +1,13 @@
-import { Box, Textarea, Badge, Checkbox } from "@chakra-ui/react";
+import {
+  Box,
+  Textarea,
+  Badge,
+  Checkbox,
+  Button,
+  Input,
+} from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 import { useRef, useState } from "react";
-
-function getColors(actType) {
-  const scheme = actType === "commendation" ? "green" : "yellow";
-  return {
-    scheme,
-    light: `${scheme}.200`,
-    dark: `${scheme}.300`,
-  };
-}
 
 export default function InpsectionAct({
   section,
@@ -23,6 +22,10 @@ export default function InpsectionAct({
 
   const registerField = (fieldName) =>
     registerInput(`${section}[${index}].${fieldName}`);
+
+  const evidenceInputRef = useRef();
+  const { ref: evidenceInputCallbackRef, ...evidenceInputProps } =
+    registerField("evidence");
 
   return (
     <Box bgColor={colors.light} shadow="lg" my={2}>
@@ -60,7 +63,35 @@ export default function InpsectionAct({
             {...registerField("resolution")}
           />
         )}
+        <Box display="flex" flexDirection="row-reverse">
+          <Button
+            size="sm"
+            leftIcon={<AddIcon />}
+            onClick={() => {
+              evidenceInputRef.current.click();
+            }}
+          >
+            Evidence
+          </Button>
+          <Input
+            type="file"
+            ref={(el) => {
+              evidenceInputCallbackRef(el);
+              evidenceInputRef.current = el;
+            }}
+            {...evidenceInputProps}
+          />
+        </Box>
       </Box>
     </Box>
   );
+}
+
+function getColors(actType) {
+  const scheme = actType === "commendation" ? "green" : "yellow";
+  return {
+    scheme,
+    light: `${scheme}.200`,
+    dark: `${scheme}.300`,
+  };
 }

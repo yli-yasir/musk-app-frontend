@@ -1,5 +1,4 @@
 import { extendTheme } from "@chakra-ui/react";
-import { StepsStyleConfig as Steps } from "chakra-ui-steps";
 const theme = extendTheme({
   styles: {
     global: {
@@ -15,9 +14,6 @@ const theme = extendTheme({
         borderRadius: "8px",
       },
     },
-  },
-  components: {
-    Steps,
   },
 });
 

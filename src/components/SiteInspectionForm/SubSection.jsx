@@ -1,10 +1,10 @@
 import { Heading, Button, Box } from "@chakra-ui/react";
 import { useState } from "react";
-import InpsectionAct from "./InspectionAct";
+import InspectionAct from "./InspectionAct";
 import { ListItem, ListIcon } from "@chakra-ui/react";
 import { SettingsIcon, AddIcon } from "@chakra-ui/icons";
 
-export default function SubSection({ registerInput, section, title }) {
+export default function SubSection({ section, title }) {
   const [inspectionActs, setInspectionActs] = useState([]);
 
   function addInspectionAct(actType) {
@@ -19,8 +19,8 @@ export default function SubSection({ registerInput, section, title }) {
       </Box>
       <Box>
         {inspectionActs.map((actType, index) => (
-          <InpsectionAct
-            registerInput={registerInput}
+          <InspectionAct
+            key={index}
             section={section}
             subsection={title}
             index={index}

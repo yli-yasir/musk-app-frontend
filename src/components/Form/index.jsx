@@ -1,4 +1,4 @@
-import { Divider, Heading } from "@chakra-ui/react";
+import { Box, Divider, Heading } from "@chakra-ui/react";
 import Logo from "../Logo";
 import Paper from "../Paper";
 
@@ -11,9 +11,9 @@ export default function Form({ title, children, maxWidth, ...props }) {
         {title}
       </Heading>
       <Divider mt={4} mb={8} width="50%" borderColor="blackAlpha.400" />
-      <form style={{ width: "100%" }} {...props}>
+      <Box as="form" w="100%" {...props}>
         {children}
-      </form>
+      </Box>
     </Paper>
   );
 }
