@@ -2,25 +2,18 @@ import { Box, Flex, Button, Input, Image } from "@chakra-ui/react";
 import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
 import { useEffect, useState, useRef } from "react";
 
-export default function ImageUpload(props) {
-  const { register, watch } = useFormContext();
+export default function ImageUpload({ namePrefix = "test" }) {
+  const name = `${namePrefix}.images`;
+
+  const { register } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
-    name: "test.son", // unique name for your Field Array
+    name,
   });
 
-  const fileLists = useWatch({ name: "test.son" });
+  const fileLists = useWatch({ name });
 
   const [addRequested, setAddRequested] = useState(false);
-
-  const [imageURLs, setImageURLs] = useState([]);
-
-  useEffect(() => {
-    const newImageURLs = fileLists?.map(
-      ([file]) => file && URL.createObjectURL(file)
-    );
-    setImageURLs(newImageURLs || []);
-  }, [fileLists]);
 
   const lastInputRef = useRef();
 
@@ -30,6 +23,21 @@ export default function ImageUpload(props) {
       setAddRequested(false);
     }
   }, [addRequested]);
+
+  function renderThumbnail(fileLists, index) {
+    const file = fileLists[index][0];
+    if (file) {
+      const fileURL = URL.createObjectURL(file);
+      return (
+        <Image
+          src={fileURL}
+          alt="thumbnail"
+          onLoad={() => URL.revokeObjectURL(fileURL)}
+          onClick={() => remove(index)}
+        />
+      );
+    }
+  }
 
   return (
     <Box>
@@ -45,7 +53,7 @@ export default function ImageUpload(props) {
       </Flex>
       <Box>
         {fields.map((field, index) => {
-          const { ref, ...inputProps } = register(`test.son.${index}`);
+          const { ref, ...inputProps } = register(`${name}.${index}`);
           return (
             <Box key={field.id}>
               <Input
@@ -59,14 +67,9 @@ export default function ImageUpload(props) {
                 }}
                 {...inputProps}
               />
-              {imageURLs[index] && (
-                <Image
-                  src={imageURLs[index]}
-                  alt="thumbnail"
-                  onLoad={() => URL.revokeObjectURL(imageURLs[index])}
-                  onClick={() => remove(index)}
-                />
-              )}
+              {fileLists &&
+                fileLists[index] &&
+                renderThumbnail(fileLists, index)}
             </Box>
           );
         })}
