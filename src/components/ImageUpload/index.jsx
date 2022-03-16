@@ -1,11 +1,9 @@
-import { Box, Flex, Button, Input, Image, IconButton } from "@chakra-ui/react";
+import { Box, Flex, Button, Input } from "@chakra-ui/react";
 import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
 import { useEffect, useState, useRef, Fragment } from "react";
 import Thumbnail from "./Thumbnail";
 
-export default function ImageUpload({ namePrefix = "test" }) {
-  const name = `${namePrefix}.images`;
-
+export default function ImageUpload({ name = "images" }) {
   const { register } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
@@ -40,11 +38,11 @@ export default function ImageUpload({ namePrefix = "test" }) {
           append("");
           setAddRequested(true);
         }}
-        mb={8}
+        mb={fields.length > 0 ? 8 : 0}
       >
         Upload Image
       </Button>
-      <Flex flexWrap="wrap" columnGap={4} rowGap={4} mb={4}>
+      <Flex flexWrap="wrap" columnGap={4} rowGap={4} mb={2}>
         {fields.map((field, index) => {
           const { ref, ...inputProps } = register(`${name}.${index}`);
           return (

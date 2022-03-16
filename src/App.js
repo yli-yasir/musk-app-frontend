@@ -1,4 +1,4 @@
-import LoginPage from "./Pages/Login";
+import LoginPage from "./pages/Login";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,8 +11,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
 import UserContext, { roles } from "./contexts/UserContext";
 import { useState } from "react";
-import DashboardPage from "./Pages/Dashboard";
-import InspectSite from "./Pages/InspectSite";
+import DashboardPage from "./pages/Dashboard";
+import InspectSite from "./pages/InspectSite";
 import { Box } from "@chakra-ui/react";
 
 export default function App() {

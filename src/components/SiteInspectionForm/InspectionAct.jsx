@@ -1,34 +1,33 @@
-import {
-  Box,
-  Textarea,
-  Badge,
-  Checkbox,
-  Button,
-  Input,
-} from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { useRef, useState } from "react";
+import { Box, Textarea, Badge, Checkbox, IconButton } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import { useFormContext } from "react-hook-form";
+import ImageUpload from "../ImageUpload";
 
 export default function InpsectionAct({
   section,
   subsection,
-  index,
-  registerInput,
+  name,
   actType,
-  ...props
+  onRemove,
 }) {
+  const { register } = useFormContext();
+
   const [resolved, setResolved] = useState(false);
   const colors = getColors(actType);
 
-  const registerField = (fieldName) =>
-    registerInput(`${section}[${index}].${fieldName}`);
-
-  const evidenceInputRef = useRef();
-  const { ref: evidenceInputCallbackRef, ...evidenceInputProps } =
-    registerField("evidence");
-
   return (
-    <Box bgColor={colors.light} shadow="lg" my={2}>
+    <Box bgColor={colors.light} shadow="lg" my={2} position="relative">
+      <IconButton
+        position="absolute"
+        top="4px"
+        right="4px"
+        size="sm"
+        colorScheme="red"
+        aria-label="remove image"
+        onClick={() => onRemove()}
+        icon={<CloseIcon />}
+      />
       <Box bgColor={colors.dark} p={2}>
         <Badge variant="solid" colorScheme={colors.scheme} mr={2}>
           {section}
@@ -40,17 +39,18 @@ export default function InpsectionAct({
           {actType}
         </Badge>
       </Box>
+
       <Box p={2}>
         <Textarea
           bgColor="white"
           placeholder="Description"
           my={4}
-          {...registerField("description")}
+          {...register(`${name}.description`)}
         />
         <Checkbox
           colorScheme={colors.scheme}
           isChecked={resolved}
-          {...registerField("resolved")}
+          {...register(`${name}.isResolved`)}
           onChange={(e) => setResolved(e.target.checked)}
         >
           Resolved
@@ -60,28 +60,11 @@ export default function InpsectionAct({
             bgColor="white"
             placeholder="Resolution"
             my={4}
-            {...registerField("resolution")}
+            {...register(`${name}.resolution`)}
           />
         )}
-        <Box display="flex" flexDirection="row-reverse">
-          <Button
-            size="sm"
-            leftIcon={<AddIcon />}
-            onClick={() => {
-              evidenceInputRef.current.click();
-            }}
-          >
-            Evidence
-          </Button>
-          <Input
-            type="file"
-            ref={(el) => {
-              evidenceInputCallbackRef(el);
-              evidenceInputRef.current = el;
-            }}
-            {...evidenceInputProps}
-          />
-        </Box>
+
+        <ImageUpload name={`${name}.images`} />
       </Box>
     </Box>
   );
