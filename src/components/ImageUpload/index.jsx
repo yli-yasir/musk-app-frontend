@@ -1,6 +1,7 @@
-import { Box, Flex, Button, Input, Image } from "@chakra-ui/react";
+import { Box, Flex, Button, Input, Image, IconButton } from "@chakra-ui/react";
 import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Fragment } from "react";
+import Thumbnail from "./Thumbnail";
 
 export default function ImageUpload({ namePrefix = "test" }) {
   const name = `${namePrefix}.images`;
@@ -28,37 +29,30 @@ export default function ImageUpload({ namePrefix = "test" }) {
     const file = fileLists[index][0];
     if (file) {
       const fileURL = URL.createObjectURL(file);
-      return (
-        <Image
-          src={fileURL}
-          alt="thumbnail"
-          onLoad={() => URL.revokeObjectURL(fileURL)}
-          onClick={() => remove(index)}
-        />
-      );
+      return <Thumbnail src={fileURL} onRemove={() => remove(index)} />;
     }
   }
 
   return (
-    <Box>
-      <Flex flexDir="row-reverse">
-        <Button
-          onClick={() => {
-            append("");
-            setAddRequested(true);
-          }}
-        >
-          Upload Image
-        </Button>
-      </Flex>
-      <Box>
+    <Flex flexDirection="column" alignItems="flex-end">
+      <Button
+        onClick={() => {
+          append("");
+          setAddRequested(true);
+        }}
+        mb={8}
+      >
+        Upload Image
+      </Button>
+      <Flex flexWrap="wrap" columnGap={4} rowGap={4} mb={4}>
         {fields.map((field, index) => {
           const { ref, ...inputProps } = register(`${name}.${index}`);
           return (
-            <Box key={field.id}>
+            <Fragment key={field.id}>
               <Input
+                accept="image/*"
                 type="file"
-                key={field.id}
+                display="none"
                 ref={(el) => {
                   ref(el);
                   if (index === fields.length - 1) {
@@ -70,10 +64,10 @@ export default function ImageUpload({ namePrefix = "test" }) {
               {fileLists &&
                 fileLists[index] &&
                 renderThumbnail(fileLists, index)}
-            </Box>
+            </Fragment>
           );
         })}
-      </Box>
-    </Box>
+      </Flex>
+    </Flex>
   );
 }
