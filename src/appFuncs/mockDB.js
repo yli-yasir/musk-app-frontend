@@ -46,7 +46,7 @@ const mockDB = {
   ],
   inspectionFormSections: [
     {
-      name: "Working Standards",
+      title: "Working Standards",
       subSections: [
         "Work at height",
         "Lifting Operations",
@@ -56,7 +56,7 @@ const mockDB = {
       ],
     },
     {
-      name: "Misc",
+      title: "Misc",
       subSections: [
         "Work at height - Misc",
         "Lifting Operations - Misc",
