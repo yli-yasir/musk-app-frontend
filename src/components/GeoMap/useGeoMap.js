@@ -15,6 +15,7 @@ export default function useGeoMap({ sites, selectedSite, onSiteClick }) {
   }, []);
 
   useEffect(() => {
+    if (!sites) return;
     for (const site of sites) {
       const markerElement = makeMarkerElement(site.icon, () =>
         onSiteClick(site)
@@ -32,7 +33,7 @@ export default function useGeoMap({ sites, selectedSite, onSiteClick }) {
         zoom: 5,
       });
     }
-  }, [sites, selectedSite]);
+  }, [selectedSite]);
 }
 
 function makeMarkerElement(iconSrc, onClick) {

@@ -18,8 +18,9 @@ export default function GeoMap(props) {
   } = useSiteSearch(sites);
 
   const [selectedSite, setSelectedSite] = useState();
+
   useEffect(() => {
-    if (sites.length > 0) {
+    if (sites?.length > 0) {
       setSelectedSite(sites[0]);
     }
   }, [sites]);

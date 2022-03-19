@@ -1,5 +1,5 @@
 import camelCase from "lodash.camelcase";
-
+import startCase from "lodash.startcase";
 // Example args for getSectionsCellData()
 //  const sections = [
 //     { title: "work at top", subSections: ["work at top sub1", "work at topsub2"] },
@@ -74,9 +74,14 @@ function getInspectionActsCellData(sectionTitle, subSectionTitle, inputData) {
       ? subSectionInputData
       : [{}];
   inspectionActs = inspectionActs.map((inspectionAct) => ({
-    content: inspectionAct.actType || "N/A",
+    content: inspectionAct.actType ? startCase(inspectionAct.actType) : "N/A",
     description: inspectionAct.description || "N/A",
-    isResolved: inspectionAct.isResolved || "N/A",
+    isResolved:
+      typeof inspectionAct.isResolved === "undefined"
+        ? "N/A"
+        : inspectionAct.isResolved
+        ? "Yes"
+        : "No",
     resolution: inspectionAct.resolution || "N/A",
     images: getInspectionActImagesCellData(inspectionAct),
     rowSpan() {

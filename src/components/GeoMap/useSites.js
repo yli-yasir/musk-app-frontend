@@ -10,5 +10,5 @@ export default function useSites() {
     }
   }, []);
 
-  return sites || [];
+  return sites;
 }
