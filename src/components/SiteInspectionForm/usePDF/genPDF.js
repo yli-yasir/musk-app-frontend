@@ -147,8 +147,8 @@ function addEvidence(doc, evidence, y = 0) {
 
   doc.addPage();
   currentY += MARGIN_TOP;
-  doc.text(" - Evidence", MARGIN_LEFT, currentY);
   doc.setFont("courier", "italic");
+  doc.text(" - Evidence", MARGIN_LEFT, currentY);
 
   for (const { file, id } of evidence) {
     if (currentY + EVIDENCE_ITEM_HEIGHT > PAGE_HEIGHT) {

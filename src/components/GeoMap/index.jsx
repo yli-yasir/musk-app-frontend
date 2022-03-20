@@ -74,6 +74,9 @@ export default function GeoMap(props) {
               <Badge colorScheme="yellow">
                 Interventions: {selectedSite.interventionCount}
               </Badge>
+              <Button size="sm" colorScheme="blue" flexGrow={1}>
+                Details
+              </Button>
             </Paper>
           )}
           <Box w="100%" h="100%" borderRadius="lg" id="map-container" />
