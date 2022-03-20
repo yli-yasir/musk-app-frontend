@@ -1,5 +1,7 @@
 import camelCase from "lodash.camelcase";
 import startCase from "lodash.startcase";
+
+export const BLANK_CELL_CONTENT = "-";
 // Example args for getSectionsCellData()
 //  const sections = [
 //     { title: "work at top", subSections: ["work at top sub1", "work at topsub2"] },
@@ -74,15 +76,17 @@ function getInspectionActsCellData(sectionTitle, subSectionTitle, inputData) {
       ? subSectionInputData
       : [{}];
   inspectionActs = inspectionActs.map((inspectionAct) => ({
-    content: inspectionAct.actType ? startCase(inspectionAct.actType) : "N/A",
-    description: inspectionAct.description || "N/A",
+    content: inspectionAct.actType
+      ? startCase(inspectionAct.actType)
+      : BLANK_CELL_CONTENT,
+    description: inspectionAct.description || BLANK_CELL_CONTENT,
     isResolved:
       typeof inspectionAct.isResolved === "undefined"
-        ? "N/A"
+        ? BLANK_CELL_CONTENT
         : inspectionAct.isResolved
         ? "Yes"
         : "No",
-    resolution: inspectionAct.resolution || "N/A",
+    resolution: inspectionAct.resolution || BLANK_CELL_CONTENT,
     images: getInspectionActImagesCellData(inspectionAct),
     rowSpan() {
       return this.images.length;
@@ -92,10 +96,10 @@ function getInspectionActsCellData(sectionTitle, subSectionTitle, inputData) {
 }
 
 function getInspectionActImagesCellData(inspectionAct = {}) {
-  const { images } = inspectionAct;
-  if (Array.isArray(images) && images.length > 0) {
-    return images.map((_, index) => ({ content: `img${index}` }));
-  } else {
-    return [{ content: "N/A" }];
-  }
+  let { images } = inspectionAct;
+  images =
+    Array.isArray(images) && images.length > 0
+      ? images
+      : [[{ name: BLANK_CELL_CONTENT }]];
+  return images.map(([file]) => ({ content: file.name, file }));
 }
