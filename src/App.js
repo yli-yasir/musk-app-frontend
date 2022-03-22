@@ -12,7 +12,7 @@ import theme from "./theme";
 import UserContext, { roles } from "./contexts/UserContext";
 import { useState } from "react";
 import DashboardPage from "./pages/Dashboard";
-import InspectSite from "./pages/InspectSite";
+import InspectionSitePage from "./pages/InspectionSite";
 import { Box } from "@chakra-ui/react";
 
 export default function App() {
@@ -38,7 +38,10 @@ export default function App() {
                 element={<GuardedApp userRole={userContext.role} />}
               >
                 <Route index element={<DashboardPage />} />
-                <Route path={routePaths.inspectSite} element={InspectSite} />
+                <Route
+                  path={routePaths.inspectionSite}
+                  element={<InspectionSitePage />}
+                />
               </Route>
             </Routes>
           </Router>

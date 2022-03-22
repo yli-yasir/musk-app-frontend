@@ -19,8 +19,27 @@ const appFuncsMock = {
   async getInspectionSites() {
     return await mockDB.get("inspectionSites");
   },
+
   async getInspectionFormSections() {
     return await mockDB.get("inspectionFormSections");
+  },
+
+  async getInspectionSiteById(id) {
+    const inspectionSites = await mockDB.get("inspectionSites");
+    console.log(inspectionSites);
+    const site = inspectionSites.find((site) => site.id === parseInt(id));
+    return site;
+  },
+
+  async getInspectionActStats() {
+    return await Promise.resolve({
+      commendationCount: 1,
+      interventionCount: 3,
+    });
+  },
+
+  async getInspections() {
+    return await mockDB.get("inspections");
   },
 };
 

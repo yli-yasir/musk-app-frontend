@@ -5,9 +5,13 @@ import useSites from "./useSites";
 import SearchMenu from "../SearchMenu";
 import useSiteSearch from "./useSiteSearch";
 import Paper from "../Paper";
+import { ViewIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import { getInspectionSitePath } from "../../routePaths";
 
 // const site = {id:0,name:'amazing', icon: 'iconUrl', description: "hello there", inspectionCount, interventionCount, commendationCount, long: -100.324462, lat: -16.024695 ,}
 export default function GeoMap(props) {
+  const navigate = useNavigate();
   const sites = useSites();
 
   const {
@@ -63,6 +67,9 @@ export default function GeoMap(props) {
               top={0}
               flexDirection="row"
               columnGap={4}
+              maxW="700px"
+              p={4}
+              m={4}
             >
               <Badge colorScheme="blue">{selectedSite.name}</Badge>
               <Badge colorScheme="purple">
@@ -74,7 +81,14 @@ export default function GeoMap(props) {
               <Badge colorScheme="yellow">
                 Interventions: {selectedSite.interventionCount}
               </Badge>
-              <Button size="sm" colorScheme="blue" flexGrow={1}>
+              <Button
+                size="sm"
+                colorScheme="blue"
+                flexGrow={1}
+                variant="outline"
+                leftIcon={<ViewIcon />}
+                onClick={() => navigate(getInspectionSitePath(selectedSite.id))}
+              >
                 Details
               </Button>
             </Paper>

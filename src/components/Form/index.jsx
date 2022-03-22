@@ -5,7 +5,7 @@ import Paper from "../Paper";
 // TODO replace the inline-style
 export default function Form({ title, children, maxWidth, ...props }) {
   return (
-    <Paper maxWidth={maxWidth}>
+    <Paper maxWidth={maxWidth} p={4}>
       <Logo width="50%" />
       <Heading textAlign="center" mt={6} size="xl">
         {title}

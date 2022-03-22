@@ -44,6 +44,29 @@ const mockDB = {
       commendationCount: 7,
     },
   ],
+  inspections: [
+    {
+      id: 0,
+      siteId: 0,
+      date: new Date("2022-1-7"),
+      interventionCount: 3,
+      commendationCount: 1,
+    },
+    {
+      id: 1,
+      siteId: 1,
+      date: new Date("2022-12-7"),
+      interventionCount: 1,
+      commendationCount: 10,
+    },
+    {
+      id: 2,
+      siteId: 1,
+      date: new Date("2022-06-7"),
+      interventionCount: 20,
+      commendationCount: 5,
+    },
+  ],
   inspectionFormSections: [
     {
       title: "Working Standards",
