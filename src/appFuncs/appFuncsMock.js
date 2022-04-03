@@ -32,13 +32,15 @@ const appFuncsMock = {
   },
 
   async getInspectionActStats() {
+    console.log("called");
     return await Promise.resolve({
       commendationCount: 1,
       interventionCount: 3,
     });
   },
 
-  async getInspections() {
+  async getInspections(filter = {}) {
+    const { name, dateOrder, interventionOrder } = filter;
     return await mockDB.get("inspections");
   },
 };

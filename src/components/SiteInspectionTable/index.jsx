@@ -13,7 +13,7 @@ export default function InspectionTable({ data, ...props }) {
         </Tr>
       </Thead>
       <Tbody>
-        {data.map((inspectionRecord) => (
+        {data?.map((inspectionRecord) => (
           <Tr>
             <Td>{inspectionRecord.siteName}</Td>
             <Td>{inspectionRecord.date.toLocaleDateString()}</Td>
