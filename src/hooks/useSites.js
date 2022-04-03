@@ -1,4 +1,4 @@
-import appFuncs from "../../appFuncs";
+import appFuncs from "../appFuncs";
 import { useAsync } from "react-use";
 
 export default function useSites() {

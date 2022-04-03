@@ -1,18 +1,8 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  Link,
-} from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Link } from "@chakra-ui/react";
 
 export default function InspectionTable({ data, ...props }) {
   return (
     <Table variant="simple" {...props}>
-      <TableCaption>Site Inspections</TableCaption>
       <Thead>
         <Tr>
           <Th>Site</Th>

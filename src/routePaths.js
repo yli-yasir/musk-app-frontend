@@ -3,10 +3,14 @@
 export const getInspectionSitePath = (siteId = ":siteId") =>
   `/inspection-sites/${siteId}`;
 
+export const getNewInspectionPath = (siteId = ":siteId") =>
+  `${getInspectionSitePath(siteId)}/new-inspection`;
+
 const routePaths = {
   login: "/login",
   inspectionSite: getInspectionSitePath(),
-  inspectSite: "/inspection-sites/:siteId/new-inspection",
+  inspections: "/inspections",
+  newInspection: getNewInspectionPath(),
 };
 
 export default routePaths;

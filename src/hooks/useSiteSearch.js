@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import useSites from "./useSites";
 
-export default function useSiteSearch(sites) {
+export default function useSiteSearch() {
+  const sites = useSites();
   const [searchValue, setSearchValue] = useState("");
   const [searchValueChangeMethod, setSearchValueChangeMethod] = useState();
   const [suggestions, setSuggestions] = useState([]);
@@ -15,6 +17,7 @@ export default function useSiteSearch(sites) {
   }, [searchValue, sites, searchValueChangeMethod]);
 
   return {
+    sites,
     searchValue,
     setSearchValue,
     setSearchValueChangeMethod,
@@ -28,5 +31,6 @@ function findSiteSuggestions(sites, search) {
   );
   const suggestions = targetSites?.map(({ id, name }) => ({ id, text: name }));
 
+  // Watch out for returning a new array - will trigger rerender
   return suggestions || [];
 }

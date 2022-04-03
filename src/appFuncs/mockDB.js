@@ -48,6 +48,7 @@ const mockDB = {
     {
       id: 0,
       siteId: 0,
+      siteName: "Hammer works",
       date: new Date("2022-1-7"),
       interventionCount: 3,
       commendationCount: 1,
@@ -55,6 +56,7 @@ const mockDB = {
     {
       id: 1,
       siteId: 1,
+      siteName: "Book Mine",
       date: new Date("2022-12-7"),
       interventionCount: 1,
       commendationCount: 10,
@@ -62,6 +64,7 @@ const mockDB = {
     {
       id: 2,
       siteId: 1,
+      siteName: "Book Mine",
       date: new Date("2022-06-7"),
       interventionCount: 20,
       commendationCount: 5,

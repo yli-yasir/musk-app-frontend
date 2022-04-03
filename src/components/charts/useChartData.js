@@ -1,11 +1,11 @@
 import { useAsync } from "react-use";
 import { useEffect, useState } from "react";
 
-export default function makeChartHook(getRawData, transformRawData) {
-  return () => {
+export default function makeChartHook(fetchRawData, transformRawData) {
+  return (prefetchedRawData) => {
     const { value: rawChartData } = useAsync(
-      async () => await getRawData(),
-      []
+      async () => prefetchedRawData || (await fetchRawData()),
+      [prefetchedRawData]
     );
     const [chartData, setChartData] = useState();
 

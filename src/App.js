@@ -14,6 +14,8 @@ import { useState } from "react";
 import DashboardPage from "./pages/Dashboard";
 import InspectionSitePage from "./pages/InspectionSite";
 import { Box } from "@chakra-ui/react";
+import InspectionsPage from "./pages/Inspections";
+import NewInspectionPage from "./pages/NewInspection";
 
 export default function App() {
   const [userContext, setUserContext] = useState({
@@ -28,6 +30,10 @@ export default function App() {
         <ChakraProvider theme={theme}>
           <Router>
             <Routes>
+              <Route
+                path={routePaths.inspections}
+                element={<InspectionsPage />}
+              />
               <Route path={routePaths.login} element={<LoginPage />} />
               <Route
                 path="*"
@@ -41,6 +47,10 @@ export default function App() {
                 <Route
                   path={routePaths.inspectionSite}
                   element={<InspectionSitePage />}
+                />
+                <Route
+                  path={routePaths.newInspection}
+                  element={<NewInspectionPage />}
                 />
               </Route>
             </Routes>
