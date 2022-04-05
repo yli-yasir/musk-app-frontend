@@ -20,7 +20,11 @@ export default function InspectionTable({ data, ...props }) {
             <Td isNumeric>{inspectionRecord.interventionCount}</Td>
             <Td isNumeric>{inspectionRecord.commendationCount}</Td>
             <Td>
-              <Link color="blue.400" href={inspectionRecord.download}>
+              <Link
+                color="blue.400"
+                href={inspectionRecord.download}
+                target="_blank"
+              >
                 Download
               </Link>
             </Td>

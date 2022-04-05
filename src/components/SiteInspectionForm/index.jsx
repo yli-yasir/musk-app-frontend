@@ -7,21 +7,46 @@ import Section from "./Section";
 import { useAsync } from "react-use";
 import appFuncs from "../../appFuncs";
 import camelCase from "lodash.camelcase";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function SiteInspectionForm() {
   const methods = useForm();
-  const { handleSubmit, getValues } = methods;
-
+  const { siteId } = useParams();
+  const { handleSubmit, getValues, formState } = methods;
+  const navigate = useNavigate();
   // need to handle case where fetch fails
   const { value: sections } = useAsync(
     async () => appFuncs.getInspectionFormSections(),
     []
   );
 
-  const [PDFBlobURL, setPDFInputData] = usePDF(sections);
+  const {
+    blobURL: PDFBlobURL,
+    setInputData: setPDFInputData,
+    blob: PDFBlob,
+  } = usePDF(sections);
 
-  const handleFormSubmit = handleSubmit((data) => {
-    console.log(data);
+  const handleFormSubmit = handleSubmit(async (data) => {
+    let interventionCount = 0;
+    let commendationCount = 0;
+    for (const section of Object.values(data)) {
+      for (const subsection of Object.values(section)) {
+        for (const interventionAct of subsection) {
+          interventionAct.actType === "intervention"
+            ? interventionCount++
+            : commendationCount++;
+        }
+      }
+    }
+
+    const submission = {
+      interventionCount,
+      commendationCount,
+      siteId: parseInt(siteId),
+      reportFile: new File([PDFBlob], "report", { type: "pdf" }),
+    };
+    await appFuncs.submitInspection(submission);
+    navigate("/");
   });
 
   return (
@@ -55,7 +80,7 @@ export default function SiteInspectionForm() {
             ></Box>
           </BriefAccordionItem>
         </Accordion>
-        <Button type="submit" m={4}>
+        <Button type="submit" m={4} isLoading={formState.isSubmitting}>
           Submit
         </Button>
       </Form>

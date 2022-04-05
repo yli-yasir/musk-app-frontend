@@ -28,6 +28,7 @@ const appFuncsMock = {
     const inspectionSites = await mockDB.get("inspectionSites");
     console.log(inspectionSites);
     const site = inspectionSites.find((site) => site.id === parseInt(id));
+    console.log(site);
     return site;
   },
 

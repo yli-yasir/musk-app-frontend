@@ -21,12 +21,20 @@ import {
 import ChartContainer from "../../components/charts/ChartContainer";
 import routePaths from "../../routePaths";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import UserContext, { roles } from "../../contexts/UserContext";
 export default function DashboardPage() {
   const inspectionActDoughnutData = useInspectionActDoughnut();
   const inspectionLinesChartData = useInspectionLines();
-
+  const [userContext, setUserContext] = useContext(UserContext);
   return (
-    <Page maxWidth="1000px" paddingTop={8} paddingX={2} width="100%">
+    <Page
+      maxWidth="1000px"
+      paddingTop={8}
+      paddingBottom={4}
+      paddingX={2}
+      width="100%"
+    >
       <Logo />
       <Heading mt={6} mb={2}>
         Dashboard
@@ -39,6 +47,14 @@ export default function DashboardPage() {
           <MenuList>
             <MenuItem as={Link} to={routePaths.inspections}>
               View Inspections
+            </MenuItem>
+            {userContext.role === roles.admin && (
+              <MenuItem as={Link} to={routePaths.register}>
+                Register User
+              </MenuItem>
+            )}
+            <MenuItem onClick={() => setUserContext({ role: roles.guest })}>
+              Logout
             </MenuItem>
           </MenuList>
         </Menu>

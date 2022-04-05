@@ -63,9 +63,12 @@ export default function InspectionSite(props) {
                   maxW="300px"
                   bgColor="gray.100"
                   borderRadius="2xl"
+                  padding={4}
                 ></Image>
                 <Flex>
-                  <Doughnut data={inspectionActChartData} />
+                  {inspectionActChartData && (
+                    <Doughnut data={inspectionActChartData} />
+                  )}
                 </Flex>
               </Flex>
             </>

@@ -16,7 +16,7 @@ import InspectionSitePage from "./pages/InspectionSite";
 import { Box } from "@chakra-ui/react";
 import InspectionsPage from "./pages/Inspections";
 import NewInspectionPage from "./pages/NewInspection";
-
+import RegisterPage from "./pages/Register";
 export default function App() {
   const [userContext, setUserContext] = useState({
     name: "anon",
@@ -52,6 +52,7 @@ export default function App() {
                   path={routePaths.newInspection}
                   element={<NewInspectionPage />}
                 />
+                <Route path={routePaths.register} element={<RegisterPage />} />
               </Route>
             </Routes>
           </Router>

@@ -39,9 +39,8 @@ const mockDB = {
       icon: siteLogo2,
       long: -140.324462,
       lat: -16.024695,
-      inspectionCount: 3,
-      interventionCount: 5,
-      commendationCount: 7,
+      interventionCount: 0,
+      commendationCount: 0,
     },
   ],
   inspections: [
@@ -50,8 +49,8 @@ const mockDB = {
       siteId: 0,
       siteName: "Hammer works",
       date: new Date("2022-1-7"),
-      interventionCount: 3,
-      commendationCount: 1,
+      interventionCount: 0,
+      commendationCount: 0,
     },
     {
       id: 1,

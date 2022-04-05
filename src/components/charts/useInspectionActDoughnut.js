@@ -13,6 +13,9 @@ const useInspectionActDoughnut = makeChartHook(
 export default useInspectionActDoughnut;
 
 function transformRawData({ interventionCount, commendationCount }) {
+  console.log("calleds");
+  console.log(interventionCount);
+  console.log(commendationCount);
   return {
     labels: ["Intervention", "Commendation"],
     datasets: [

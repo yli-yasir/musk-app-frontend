@@ -41,14 +41,16 @@ export default function SearchFilterMenu(props) {
           type="radio"
           onChange={handleChange}
         >
-          <MenuItemOption value="dateOrder-asc">Ascending</MenuItemOption>
-          <MenuItemOption value="dateOrder-desc">Descending</MenuItemOption>
+          <MenuItemOption value="dateOrder-asc">Date Ascending</MenuItemOption>
+          <MenuItemOption value="dateOrder-desc">
+            Date Descending
+          </MenuItemOption>
           <MenuDivider />
           <MenuItemOption value="interventionOrder-asc">
-            Ascending
+            Interventions Ascending
           </MenuItemOption>
           <MenuItemOption value="interventionOrder-desc">
-            Descending
+            Interventions Descending
           </MenuItemOption>
         </MenuOptionGroup>
       </MenuList>

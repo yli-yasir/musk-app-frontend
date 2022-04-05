@@ -11,5 +11,9 @@ export default function usePDF(sections) {
     }
   }, [sections, inputData]);
 
-  return [PDF?.output("bloburl"), setInputData];
+  return {
+    blobURL: PDF?.output("bloburl"),
+    blob: PDF?.output("blob"),
+    setInputData,
+  };
 }

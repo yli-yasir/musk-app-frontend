@@ -8,6 +8,7 @@ export const getNewInspectionPath = (siteId = ":siteId") =>
 
 const routePaths = {
   login: "/login",
+  register: "/register",
   inspectionSite: getInspectionSitePath(),
   inspections: "/inspections",
   newInspection: getNewInspectionPath(),
