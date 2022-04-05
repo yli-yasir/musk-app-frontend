@@ -9,7 +9,7 @@ export const roles = {
 const UserContext = createContext({
   name: "anon",
   email: "anon@musk.com",
-  role: roles.admin,
+  role: roles.guest,
 });
 
 export default UserContext;

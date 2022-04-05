@@ -25,8 +25,6 @@ export default function useGeoMap({ sites, selectedSite, onSiteClick }) {
       new mapBoxGL.Marker(markerElement)
         .setLngLat([site.long, site.lat])
         .addTo(geoMapRef.current);
-
-      console.log("added markers");
     }
   }, [sites]);
 
@@ -34,7 +32,7 @@ export default function useGeoMap({ sites, selectedSite, onSiteClick }) {
     if (selectedSite) {
       geoMapRef.current.flyTo({
         center: [selectedSite.long, selectedSite.lat],
-        zoom: 5,
+        zoom: 10,
       });
     }
   }, [selectedSite]);
@@ -54,7 +52,7 @@ function makeMarkerElement(markerlabel, iconSrc, onClick) {
   contentContainer.position = "relative";
   contentContainer.onclick = onClick;
 
-  const label = document.createElement("span");
+  const label = document.createElement("b");
   label.textContent = markerlabel;
   label.style.position = "absolute";
   label.style.bottom = "-40px";

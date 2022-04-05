@@ -6,6 +6,7 @@ import {
   MenuOptionGroup,
   MenuItemOption,
   MenuDivider,
+  MenuItem,
 } from "@chakra-ui/react";
 import { UpDownIcon } from "@chakra-ui/icons";
 import { useSearchParams } from "react-router-dom";
@@ -13,8 +14,13 @@ import { useSearchParams } from "react-router-dom";
 export default function SearchFilterMenu(props) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleChange = (name, value) => {
-    searchParams.set(name, value);
+  const handleChange = (sortOption) => {
+    for (const [key] of searchParams.entries()) {
+      key.match(/.+order/i) && searchParams.delete(key);
+    }
+    const [key, value] = sortOption.split("-");
+    searchParams.set(key, value);
+    console.log(searchParams);
     setSearchParams(searchParams);
   };
 
@@ -30,23 +36,20 @@ export default function SearchFilterMenu(props) {
       </MenuButton>
       <MenuList minWidth="240px">
         <MenuOptionGroup
-          defaultValue="dsc"
-          title="Date"
+          defaultValue="desc"
+          title="Sort by"
           type="radio"
-          onChange={(value) => handleChange("dateOrder", value)}
+          onChange={handleChange}
         >
-          <MenuItemOption value="asc">Ascending</MenuItemOption>
-          <MenuItemOption value="desc">Descending</MenuItemOption>
-        </MenuOptionGroup>
-        <MenuDivider />
-        <MenuOptionGroup
-          defaultValue="dsc"
-          title="Interventions"
-          onChange={(value) => handleChange("interventionOrder", value)}
-          type="radio"
-        >
-          <MenuItemOption value="asc">Ascending</MenuItemOption>
-          <MenuItemOption value="desc">Descending</MenuItemOption>
+          <MenuItemOption value="dateOrder-asc">Ascending</MenuItemOption>
+          <MenuItemOption value="dateOrder-desc">Descending</MenuItemOption>
+          <MenuDivider />
+          <MenuItemOption value="interventionOrder-asc">
+            Ascending
+          </MenuItemOption>
+          <MenuItemOption value="interventionOrder-desc">
+            Descending
+          </MenuItemOption>
         </MenuOptionGroup>
       </MenuList>
     </Menu>

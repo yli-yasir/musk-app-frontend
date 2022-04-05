@@ -1,14 +1,10 @@
 import { useAsync } from "react-use";
 import appFuncs from "../../appFuncs";
 
-export default function useInspectionsSearch(searchParams) {
+export default function useInspectionsSearch(queryString) {
   const { value: inspections, loading } = useAsync(async () => {
-    const filter = {};
-    for (const [key, value] of searchParams.entries()) {
-      filter[key] = value;
-    }
-    return await appFuncs.getInspections(filter);
-  }, [searchParams]);
+    return await appFuncs.getInspections(queryString);
+  }, [queryString]);
 
   return { inspections, isLoading: loading };
 }

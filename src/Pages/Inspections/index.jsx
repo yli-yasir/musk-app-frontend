@@ -10,7 +10,9 @@ import { useSearchParams } from "react-router-dom";
 export default function InspectionsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { inspections, isLoading } = useInspectionSearch(searchParams);
+  const { inspections, isLoading } = useInspectionSearch(
+    searchParams.toString()
+  );
 
   return (
     <Page maxWidth="1000px" paddingTop={8} paddingX={2} width="100%">

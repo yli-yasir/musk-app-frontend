@@ -60,6 +60,7 @@ export default function DashboardPage() {
         m={2}
         w="100%"
         maxWidth="400px"
+        alignSelf="flex-end"
         chart={Doughnut}
         chartData={inspectionActDoughnutData}
       />
