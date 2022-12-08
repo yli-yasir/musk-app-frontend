@@ -1,6 +1,6 @@
 # Musk App Frontend
 
-WIP React application for site safety compliance inspections. 
+React application for site safety compliance inspections. 
 
 ![](https://github.com/yli-yasir/musk-app-frontend/blob/master/screenshots/1.png?raw=true)
 ![](https://github.com/yli-yasir/musk-app-frontend/blob/master/screenshots/2.png?raw=true)
